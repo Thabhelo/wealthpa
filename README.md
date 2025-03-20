@@ -1,13 +1,13 @@
-# WealthPal – Your Financial Mentor & Assistant
+# WealthPA – Your Financial Mentor & Assistant
 
-WealthPal is designed specifically for newly wealthy individuals looking for affordable, dedicated personal assistants (PAs) to help manage, safeguard, and grow their financial assets responsibly. Our approach focuses on mentorship, affordability, mutual trust, and shared growth, ensuring both clients and assistants thrive as wealth grows.
+WealthPA is designed specifically for newly wealthy individuals looking for affordable, dedicated personal assistants (PAs) to help manage, safeguard, and grow their financial assets responsibly. Our approach focuses on mentorship, affordability, mutual trust, and shared growth, ensuring both clients and assistants thrive as wealth grows.
 
 ---
 
 ## 🚀 Overview
 We connect newly wealthy individuals—who aren't yet multimillionaires or billionaires—with personal assistants (PAs) or treasurers who understand their unique needs. Our assistants help handle financial and personal tasks, allowing clients to grow their wealth without the burden of high costs.
 
-WealthPal is not just a service—it's a mutual growth journey, offering fair compensation and long-term potential for both parties.
+WealthPA is not just a service—it's a mutual growth journey, offering fair compensation and long-term potential for both parties.
 
 ---
 
@@ -25,7 +25,7 @@ WealthPal is not just a service—it's a mutual growth journey, offering fair co
 ---
 
 ## 📚 Educational Content
-WealthPal provides resources beneficial to both clients and PAs:
+WealthPA provides resources beneficial to both clients and PAs:
 
 - **Financial literacy basics**
 - **Investment fundamentals**
