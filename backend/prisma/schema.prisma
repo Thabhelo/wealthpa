@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CLIENT
+  PA
+  ADMIN
+}
+
+enum SubscriptionTier {
+  STARTER
+  GROWTH
+  PREMIUM
+}
+
+model User {
+  id                String    @id @default(uuid())
+  email             String    @unique
+  password          String
+  role              UserRole
+  firstName         String
+  lastName          String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  profile           Profile?
+  subscription      Subscription?
+  messages          Message[] @relation("SentMessages")
+  receivedMessages  Message[] @relation("ReceivedMessages")
+  matches           Match[]   @relation("ClientMatches")
+  matchedWith       Match[]   @relation("PAMatches")
+  financialGoals    FinancialGoal[]
+  transactions      Transaction[]
+}
+
+model Profile {
+  id                String    @id @default(uuid())
+  userId            String    @unique
+  user              User      @relation(fields: [userId], references: [id])
+  bio               String?
+  netWorth          Float?
+  financialGoals    String[]
+  riskTolerance     Int?      @default(5) // 1-10 scale
+  education         String[]
+  certifications    String[]
+  experience        String?
+  expertise         String[]
+  communicationStyle String?
+  availability      String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Subscription {
+  id                String    @id @default(uuid())
+  userId            String    @unique
+  user              User      @relation(fields: [userId], references: [id])
+  tier              SubscriptionTier
+  startDate         DateTime  @default(now())
+  endDate           DateTime?
+  status            String    @default("active")
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Match {
+  id                String    @id @default(uuid())
+  clientId          String
+  paId              String
+  client            User      @relation("ClientMatches", fields: [clientId], references: [id])
+  pa                User      @relation("PAMatches", fields: [paId], references: [id])
+  compatibilityScore Float
+  status            String    @default("pending") // pending, accepted, rejected
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Message {
+  id                String    @id @default(uuid())
+  senderId          String
+  receiverId        String
+  sender            User      @relation("SentMessages", fields: [senderId], references: [id])
+  receiver          User      @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  content           String
+  read              Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model FinancialGoal {
+  id                String    @id @default(uuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
+  title             String
+  description       String?
+  targetAmount      Float
+  currentAmount     Float     @default(0)
+  deadline          DateTime?
+  status            String    @default("in_progress") // in_progress, completed, abandoned
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Transaction {
+  id                String    @id @default(uuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id])
+  amount            Float
+  type              String    // income, expense
+  category          String?
+  description       String?
+  date              DateTime
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
